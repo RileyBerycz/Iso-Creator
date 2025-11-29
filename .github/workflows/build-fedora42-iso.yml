@@ -12,11 +12,11 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v5
 
-      - name: Install dependencies
+      - name: Install dependencies 
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-            xorriso isolinux syslinux debootstrap grub2-bin efibootmgr mkosi curl wget
+            xorriso isolinux syslinux debootstrap grub-common grub-efi-amd64-bin efibootmgr curl wget
 
       - name: Download Fedora 42 minimal netboot
         run: |
