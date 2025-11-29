@@ -20,7 +20,7 @@ jobs:
 
       - name: Download Fedora 42 minimal netboot
         run: |
-          wget https://download.fedoraproject.org/pub/fedora/linux/releases/42/Everything/x86_64/iso/Fedora-Everything-netinst-x86_64-42-1.7.iso -O fedora42-net.iso
+          wget https://archives.fedoraproject.org/pub/fedora/linux/releases/42/Everything/x86_64/iso/Fedora-Everything-netinst-x86_64-42-1.7.iso -O fedora42-net.iso
 
       - name: Prepare ISO workspace
         run: |
