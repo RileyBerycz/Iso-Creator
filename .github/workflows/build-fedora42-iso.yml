@@ -1,0 +1,41 @@
+# .github/workflows/build-fedora42-iso.yml
+name: Build Fedora 42 Minimal ISO
+
+on:
+  workflow_dispatch:  # allows manual triggering
+
+jobs:
+  build-iso:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            xorriso isolinux syslinux debootstrap grub2-bin efibootmgr mkosi curl wget
+
+      - name: Download Fedora 42 minimal netboot
+        run: |
+          wget https://download.fedoraproject.org/pub/fedora/linux/releases/42/Everything/x86_64/iso/Fedora-Everything-netinst-x86_64-42-1.7.iso -O fedora42-net.iso
+
+      - name: Prepare ISO workspace
+        run: |
+          mkdir iso_build
+          cp fedora42-net.iso iso_build/
+
+      - name: Build minimal ISO
+        run: |
+          # For simplicity, we just use the netboot ISO as the "minimal repair ISO"
+          # You could add mkosi here for full customization if desired
+          cp iso_build/fedora42-net.iso live-fedora42.iso
+
+      - name: Upload ISO artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fedora42-minimal-iso
+          path: live-fedora42.iso
+          retention-days: 7
