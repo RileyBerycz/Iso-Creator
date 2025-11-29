@@ -24,18 +24,20 @@ jobs:
 
       - name: Prepare ISO workspace
         run: |
-          mkdir iso_build
-          cp fedora42-net.iso iso_build/
+          mkdir -p iso_build
+          cp Fedora-Workstation-Live-42-1.1.x86_64.iso iso_build/
 
       - name: Build minimal ISO
         run: |
           # For simplicity, we just use the netboot ISO as the "minimal repair ISO"
           # You could add mkosi here for full customization if desired
-          cp iso_build/fedora42-net.iso live-fedora42.iso
+          cp iso_build/Fedora-Workstation-Live-42-1.1.x86_64.iso live-fedora42.iso
 
+          
       - name: Upload ISO artifact
         uses: actions/upload-artifact@v4
         with:
-          name: fedora42-minimal-iso
-          path: live-fedora42.iso
+          name: fedora42-live-iso
+          path: Fedora-Workstation-Live-42-1.1.x86_64.iso
           retention-days: 7
+          
